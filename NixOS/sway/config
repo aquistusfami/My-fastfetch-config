@@ -47,8 +47,8 @@ workspace 2 output eDP-1
 # -----------------------------------------------------------------------------
 # 4. AUTO-START SERVICES
 # -----------------------------------------------------------------------------
-# Bộ gõ tiếng Việt Fcitx5 (Bamboo)
-exec fcitx5 -d -r
+# Tự động chạy Fcitx5 (Bamboo) ngay cả khi Reload Sway
+exec_always fcitx5 -d -r
 
 # Biến môi trường bộ gõ cho các ứng dụng GTK, QT, XWayland
 exec_always --no-startup-id export GTK_IM_MODULE=fcitx
