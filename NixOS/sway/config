@@ -55,9 +55,8 @@ exec_always --no-startup-id export GTK_IM_MODULE=fcitx
 exec_always --no-startup-id export QT_IM_MODULE=fcitx
 exec_always --no-startup-id export XMODIFIERS=@im=fcitx
 
-# Cliphist Clipboard History Auto-store
-exec wl-paste --type text --watch cliphist store
-exec wl-paste --type image --watch cliphist store
+# Cliphist Clipboard History Auto-store (Tự động theo dõi Ctrl+C)
+exec_always pkill wl-paste 2>/dev/null; wl-paste --type text --watch cliphist store & wl-paste --type image --watch cliphist store &
 
 # Night Light (Chỉ chạy khi đã cài wlsunset)
 exec command -v wlsunset >/dev/null && wlsunset -s 18:00 -S 06:00 -t 3500 -T 6500
@@ -75,7 +74,7 @@ bindsym $mod+Shift+q kill
 bindsym $mod+d exec rofi -show drun || wmenu-run
 
 # Cliphist Clipboard History Viewer (Windows + C)
-bindsym $mod+c exec cliphist list | rofi -dmenu | cliphist decode | wl-copy
+bindsym $mod+c exec cliphist list | rofi -dmenu -p "Clipboard History" | cliphist decode | wl-copy
 
 # Navigation (Vim style + Arrow keys)
 bindsym $mod+$left focus left
