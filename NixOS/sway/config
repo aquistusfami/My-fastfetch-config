@@ -47,7 +47,7 @@ workspace 2 output eDP-1
 # -----------------------------------------------------------------------------
 # 4. AUTO-START SERVICES
 # -----------------------------------------------------------------------------
-# Tự động chạy Fcitx5 (Bamboo) ngay cả khi Reload Sway
+# Bộ gõ tiếng Việt Fcitx5 (Bamboo)
 exec_always fcitx5 -d -r
 
 # Biến môi trường bộ gõ cho các ứng dụng GTK, QT, XWayland
@@ -55,16 +55,27 @@ exec_always --no-startup-id export GTK_IM_MODULE=fcitx
 exec_always --no-startup-id export QT_IM_MODULE=fcitx
 exec_always --no-startup-id export XMODIFIERS=@im=fcitx
 
+# Cliphist Clipboard History Auto-store
+exec wl-paste --type text --watch cliphist store
+exec wl-paste --type image --watch cliphist store
+
 # Night Light (Chỉ chạy khi đã cài wlsunset)
 exec command -v wlsunset >/dev/null && wlsunset -s 18:00 -S 06:00 -t 3500 -T 6500
 
 # -----------------------------------------------------------------------------
 # 5. KEYBINDINGS
 # -----------------------------------------------------------------------------
-# Basics:
+# Terminal (Windows + Enter)
 bindsym $mod+Return exec $term
+
+# Đóng cửa sổ đang chọn (Windows + Shift + Q)
 bindsym $mod+Shift+q kill
-bindsym $mod+d exec wmenu-run || dmenu_run
+
+# Rofi App Launcher (Windows + D)
+bindsym $mod+d exec rofi -show drun || wmenu-run
+
+# Cliphist Clipboard History Viewer (Windows + V)
+bindsym $mod+v exec cliphist list | rofi -dmenu | cliphist decode | wl-copy
 
 # Navigation (Vim style + Arrow keys)
 bindsym $mod+$left focus left
